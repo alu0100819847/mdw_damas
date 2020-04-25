@@ -75,6 +75,8 @@ public abstract class Piece {
         return true;
     }
 
+    public abstract List<Coordinate> possibleMovements(Coordinate coordinate);
+
     public List<Coordinate> possibleBottomMovements(Coordinate coordinate) {
         ArrayList<Coordinate> piecePossibleMovements = new ArrayList<>();
         if (coordinate.getRow() < 6) {

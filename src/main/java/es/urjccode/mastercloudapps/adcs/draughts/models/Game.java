@@ -220,31 +220,16 @@ public class Game {
         List<Coordinate> piecesCoordinates = this.getCoordinatesWithActualColor();
         List<Coordinate> numberOfPieces = new ArrayList<Coordinate>();
         for (Coordinate coordinate : piecesCoordinates) {
-            if (this.getTurnColor() == Color.WHITE || (getPiece(coordinate).color == this.getTurnColor() && getPiece(coordinate) instanceof Draught)) {
-                boolean moveCanEat = false;
-                for(Coordinate possibleTarget : this.getPiece(coordinate).possibleTopMovements(coordinate)) {
-                    Coordinate[] coordinates = new Coordinate[]{coordinate, possibleTarget};
-                    Error error = this.isCorrectPairMove(0, coordinates);
-                    if (error == null && getBetweenDiagonalPiece(0, coordinates) != null) {
-                        moveCanEat = true;
-                    }
-                }
-                if (moveCanEat) {
-                    numberOfPieces.add(coordinate);
+            boolean moveCanEat = false;
+            for(Coordinate possibleTarget : this.getPiece(coordinate).possibleMovements(coordinate)) {
+                Coordinate[] coordinates = new Coordinate[]{coordinate, possibleTarget};
+                Error error = this.isCorrectPairMove(0, coordinates);
+                if (error == null && getBetweenDiagonalPiece(0, coordinates) != null) {
+                    moveCanEat = true;
                 }
             }
-            if (this.getTurnColor() == Color.BLACK || (getPiece(coordinate).color == this.getTurnColor() && getPiece(coordinate) instanceof Draught)) {
-                boolean moveCanEat = false;
-                for(Coordinate possibleTarget : this.getPiece(coordinate).possibleBottomMovements(coordinate)) {
-                    Coordinate[] coordinates = new Coordinate[]{coordinate, possibleTarget};
-                    Error error = this.isCorrectPairMove(0, coordinates);
-                    if (error == null && getBetweenDiagonalPiece(0, coordinates) != null) {
-                        moveCanEat = true;
-                    }
-                }
-                if (moveCanEat) {
-                    numberOfPieces.add(coordinate);
-                }
+            if (moveCanEat) {
+                numberOfPieces.add(coordinate);
             }
         }
         return numberOfPieces;

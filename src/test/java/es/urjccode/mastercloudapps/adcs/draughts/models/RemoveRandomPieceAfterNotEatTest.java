@@ -54,31 +54,4 @@ public class RemoveRandomPieceAfterNotEatTest extends GameTest{
         assertEquals(this.expectedGame, this.game);
     }
 
-    @Test
-    public void testRemoveAfterNotEatWithDraught(){
-        this.setGame(Color.BLACK,
-            "        ",
-            "        ",
-            "       n",
-            "  b b   ",
-            "   N b  ",
-            "b       ",
-            "        ",
-            "        ");
-        this.setExpectedGame(Color.WHITE,
-            "        ",
-            "        ",
-            "        ",
-            "  b b n ",
-            "     b  ",
-            "b       ",
-            "        ",
-            "        ");
-        this.game.move(new Coordinate(2,7), new Coordinate(3,6));
-        assertEquals(this.expectedGame, this.game);
-
-    }
-
-
-
 }

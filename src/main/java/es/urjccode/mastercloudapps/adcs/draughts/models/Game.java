@@ -36,21 +36,22 @@ public class Game {
     public Error move(Coordinate... coordinates) {
         Error error = null;
         List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
+        List<Coordinate> canJumpPieces = this.getCanJumpPieces();
+        int numberOfPiecesWithOppositeColor = this.getNumberOfPiecesWithOppositeColor();
         int pair = 0;
         do {
             error = this.isCorrectPairMove(pair, coordinates);
             if (error == null) {
-                List<Coordinate> canJumpPieces = this.getCanJumpPieces();
-                int numberOfPiecesWithOppositeColor = this.getNumberOfPiecesWithOppositeColor();
                 this.isCanJumpPiecesMoving(canJumpPieces, pair, coordinates);
                 this.pairMove(removedCoordinates, pair, coordinates);
-                this.removePieceIfNotJump(numberOfPiecesWithOppositeColor, canJumpPieces);
                 pair++;
             }
         } while (pair < coordinates.length - 1 && error == null);
         error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
-        if (error == null)
+        if (error == null){
+            this.removePieceIfNotJump(numberOfPiecesWithOppositeColor, canJumpPieces);
             this.turn.change();
+        }
         else
             this.unMovesUntilPair(removedCoordinates, pair, coordinates);
         return error;

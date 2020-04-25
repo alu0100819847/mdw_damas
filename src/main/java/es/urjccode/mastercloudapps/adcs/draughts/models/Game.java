@@ -221,49 +221,29 @@ public class Game {
         List<Coordinate> numberOfPieces = new ArrayList<Coordinate>();
         for (Coordinate coordinate : piecesCoordinates) {
             if (this.getTurnColor() == Color.WHITE || (getPiece(coordinate).color == this.getTurnColor() && getPiece(coordinate) instanceof Draught)) {
-                boolean move1CanEat = false;
-                boolean move2CanEat = false;
-                if (coordinate.getRow() > 1) {
-                    if (coordinate.getColumn() < 6) {
-                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleTopMovements(coordinate).get(0)};
-                        Error error = this.isCorrectPairMove(0, coordinates1);
-                        if (error == null) {
-                            move1CanEat = getBetweenDiagonalPiece(0, coordinates1) != null;
-                        }
+                boolean moveCanEat = false;
+                for(Coordinate possibleTarget : this.getPiece(coordinate).possibleTopMovements(coordinate)) {
+                    Coordinate[] coordinates = new Coordinate[]{coordinate, possibleTarget};
+                    Error error = this.isCorrectPairMove(0, coordinates);
+                    if (error == null && getBetweenDiagonalPiece(0, coordinates) != null) {
+                        moveCanEat = true;
                     }
-                    if (coordinate.getColumn() > 1) {
-                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleTopMovements(coordinate).get(1)};
-                        Error error = this.isCorrectPairMove(0, coordinates2);
-                        if (error == null) {
-                            move2CanEat = getBetweenDiagonalPiece(0, coordinates2) != null;
-                        }
-                    }
-                    if (move1CanEat || move2CanEat) {
-                        numberOfPieces.add(coordinate);
-                    }
+                }
+                if (moveCanEat) {
+                    numberOfPieces.add(coordinate);
                 }
             }
             if (this.getTurnColor() == Color.BLACK || (getPiece(coordinate).color == this.getTurnColor() && getPiece(coordinate) instanceof Draught)) {
-                boolean move1CanEat = false;
-                boolean move2CanEat = false;
-                if (coordinate.getRow() < 6) {
-                    if (coordinate.getColumn() < 6) {
-                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleBottomMovements(coordinate).get(0)};
-                        Error error = this.isCorrectPairMove(0, coordinates1);
-                        if (error == null) {
-                            move1CanEat = getBetweenDiagonalPiece(0, coordinates1) != null;
-                        }
+                boolean moveCanEat = false;
+                for(Coordinate possibleTarget : this.getPiece(coordinate).possibleBottomMovements(coordinate)) {
+                    Coordinate[] coordinates = new Coordinate[]{coordinate, possibleTarget};
+                    Error error = this.isCorrectPairMove(0, coordinates);
+                    if (error == null && getBetweenDiagonalPiece(0, coordinates) != null) {
+                        moveCanEat = true;
                     }
-                    if (coordinate.getColumn() > 1) {
-                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleBottomMovements(coordinate).get(1)};
-                        Error error = this.isCorrectPairMove(0, coordinates2);
-                        if (error == null) {
-                            move2CanEat = getBetweenDiagonalPiece(0, coordinates2) != null;
-                        }
-                    }
-                    if (move1CanEat || move2CanEat) {
-                        numberOfPieces.add(coordinate);
-                    }
+                }
+                if (moveCanEat) {
+                    numberOfPieces.add(coordinate);
                 }
             }
         }

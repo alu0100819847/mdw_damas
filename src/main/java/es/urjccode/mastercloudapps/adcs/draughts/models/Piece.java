@@ -77,15 +77,27 @@ public abstract class Piece {
 
     public List<Coordinate> possibleBottomMovements(Coordinate coordinate) {
         ArrayList<Coordinate> piecePossibleMovements = new ArrayList<>();
-        piecePossibleMovements.add(new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() + 2));
-        piecePossibleMovements.add(new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() - 2));
+        if (coordinate.getRow() < 6) {
+            if (coordinate.getColumn() < 6) {
+                piecePossibleMovements.add(new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() + 2));
+            }
+            if (coordinate.getColumn() > 1) {
+                piecePossibleMovements.add(new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() - 2));
+            }
+        }
         return piecePossibleMovements;
     }
 
     public List<Coordinate> possibleTopMovements(Coordinate coordinate) {
         ArrayList<Coordinate> piecePossibleMovements = new ArrayList<>();
-        piecePossibleMovements.add(new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() + 2));
-        piecePossibleMovements.add(new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() - 2));
+        if (coordinate.getRow() > 1) {
+            if (coordinate.getColumn() < 6) {
+                piecePossibleMovements.add(new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() + 2));
+            }
+            if (coordinate.getColumn() > 1) {
+                piecePossibleMovements.add(new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() - 2));
+            }
+        }
         return piecePossibleMovements;
     }
 }

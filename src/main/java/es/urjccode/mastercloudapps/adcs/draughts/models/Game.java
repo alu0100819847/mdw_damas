@@ -225,14 +225,14 @@ public class Game {
                 boolean move2CanEat = false;
                 if (coordinate.getRow() > 1) {
                     if (coordinate.getColumn() < 6) {
-                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() + 2)};
+                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleTopMovements(coordinate).get(0)};
                         Error error = this.isCorrectPairMove(0, coordinates1);
                         if (error == null) {
                             move1CanEat = getBetweenDiagonalPiece(0, coordinates1) != null;
                         }
                     }
                     if (coordinate.getColumn() > 1) {
-                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, new Coordinate(coordinate.getRow() - 2, coordinate.getColumn() - 2)};
+                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleTopMovements(coordinate).get(1)};
                         Error error = this.isCorrectPairMove(0, coordinates2);
                         if (error == null) {
                             move2CanEat = getBetweenDiagonalPiece(0, coordinates2) != null;
@@ -248,14 +248,14 @@ public class Game {
                 boolean move2CanEat = false;
                 if (coordinate.getRow() < 6) {
                     if (coordinate.getColumn() < 6) {
-                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() + 2)};
+                        Coordinate[] coordinates1 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleBottomMovements(coordinate).get(0)};
                         Error error = this.isCorrectPairMove(0, coordinates1);
                         if (error == null) {
                             move1CanEat = getBetweenDiagonalPiece(0, coordinates1) != null;
                         }
                     }
                     if (coordinate.getColumn() > 1) {
-                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, new Coordinate(coordinate.getRow() + 2, coordinate.getColumn() - 2)};
+                        Coordinate[] coordinates2 = new Coordinate[]{coordinate, this.getPiece(coordinate).possibleBottomMovements(coordinate).get(1)};
                         Error error = this.isCorrectPairMove(0, coordinates2);
                         if (error == null) {
                             move2CanEat = getBetweenDiagonalPiece(0, coordinates2) != null;

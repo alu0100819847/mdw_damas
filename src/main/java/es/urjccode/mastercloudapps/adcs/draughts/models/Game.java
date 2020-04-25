@@ -44,9 +44,7 @@ public class Game {
                 int numberOfPiecesWithOppositeColor = this.getNumberOfPiecesWithOppositeColor();
                 this.isCanJumpPiecesMoving(canJumpPieces, pair, coordinates);
                 this.pairMove(removedCoordinates, pair, coordinates);
-                if(numberOfPiecesWithOppositeColor == this.getNumberOfPiecesWithOppositeColor() && !canJumpPieces.isEmpty()){
-                    this.board.remove(canJumpPieces.get(new Random(System.currentTimeMillis()).nextInt(canJumpPieces.size())));
-                }
+                this.removePieceIfNotJump(numberOfPiecesWithOppositeColor, canJumpPieces);
                 pair++;
             }
         } while (pair < coordinates.length - 1 && error == null);
@@ -275,6 +273,12 @@ public class Game {
     private void isCanJumpPiecesMoving(List<Coordinate> canJumpPieces, int pair, Coordinate...coordinates){
         if(canJumpPieces.contains(coordinates[pair])){
             canJumpPieces.set(canJumpPieces.indexOf(coordinates[pair]), coordinates[pair +1]);
+        }
+    }
+
+    private void removePieceIfNotJump(int numberOfPiecesWithOppositeColor, List<Coordinate> canJumpPieces){
+        if(numberOfPiecesWithOppositeColor == this.getNumberOfPiecesWithOppositeColor() && !canJumpPieces.isEmpty()){
+            this.board.remove(canJumpPieces.get(new Random(System.currentTimeMillis()).nextInt(canJumpPieces.size())));
         }
     }
 

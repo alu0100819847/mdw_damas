@@ -77,7 +77,7 @@ public abstract class Piece {
 
     public abstract List<Coordinate> possibleMovements(Coordinate coordinate);
 
-    public List<Coordinate> possibleBottomMovements(Coordinate coordinate) {
+    protected List<Coordinate> possibleBottomMovements(Coordinate coordinate) {
         ArrayList<Coordinate> piecePossibleMovements = new ArrayList<>();
         if (coordinate.getRow() < 6) {
             if (coordinate.getColumn() < 6) {
@@ -90,7 +90,7 @@ public abstract class Piece {
         return piecePossibleMovements;
     }
 
-    public List<Coordinate> possibleTopMovements(Coordinate coordinate) {
+    protected List<Coordinate> possibleTopMovements(Coordinate coordinate) {
         ArrayList<Coordinate> piecePossibleMovements = new ArrayList<>();
         if (coordinate.getRow() > 1) {
             if (coordinate.getColumn() < 6) {
